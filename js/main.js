@@ -6,7 +6,7 @@ function pesel(){
     namePerson.innerText=imieNazwisko.value
     let date=document.getElementById('dataUrodzenia').value
     let pesel=document.getElementById('pesel');
-    let pierwDruga=date.substring(0,2);
+    let pierwDruga=date.substring(2,4);
     pesel.innerText=`${pierwDruga}`
 }
 
