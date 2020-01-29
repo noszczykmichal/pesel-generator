@@ -7,7 +7,8 @@ function pesel(){
     let date=document.getElementById('dataUrodzenia').value
     let pesel=document.getElementById('pesel');
     let pierwDruga=date.substring(2,4);
-    pesel.innerText=`${pierwDruga}`
+    let trzeciaCzwarta=parseInt(date.substring(5,7),10);
+    pesel.innerText=`${pierwDruga}${trzeciaCzwarta+20}`
 }
 
 
