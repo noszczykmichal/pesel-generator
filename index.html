@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Generator Pesel</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <section id="dane">
+        <h1>Generator Pesel</h1>
+        <form>
+            <input type="text" name="imieNazwisko" id="imieNazwisko" placeholder="Imię i Nazwisko" />
+            <label for="dataUrodzenia">Wpisz Datę Urodzenia:</label>
+            <input type="date" name="dataUrodzenia" value="2020-01-01" id="dataUrodzenia" />
+            <label for="male"><input type="radio" name="gender" value="male" id="male" checked="true">Mężczyzna</label>
+            <label for="female"><input type="radio" name="gender" value="female" id="female">Kobieta</label>
+        </form>
+        <button id="generate">Generuje Dane</button>
+        <p>Obywatel <span id="namePerson">...................</span>ma Pesel<span id="Pesel">...................</span>
+        </p>
+    </section>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+#dane{
+    padding: 20px;
+}
+
+input[type="text"], [type="date"] {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="radio"]{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#generate{
+    margin-bottom: 50px;
+}
