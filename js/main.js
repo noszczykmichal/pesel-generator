@@ -1,14 +1,19 @@
-let btn=document.getElementById('generate');
+let btn=document.getElementById('generuj');
 
 function pesel(){
-    let namePerson=document.getElementById('namePerson');
+    //wstrzykiwanie Imienia i nazwiska
+    let obywatel=document.getElementById('obywatel');
     let imieNazwisko=document.getElementById('imieNazwisko');
-    namePerson.innerText=imieNazwisko.value
-    let date=document.getElementById('dataUrodzenia').value
+    obywatel.innerText=imieNazwisko.value
+    // pierwsza i druga cyfra
+    let data=document.getElementById('dataUrodzenia').value
     let pesel=document.getElementById('pesel');
-    let pierwDruga=date.substring(2,4);
-    let trzeciaCzwarta=parseInt(date.substring(5,7),10);
-    pesel.innerText=`${pierwDruga}${trzeciaCzwarta+20}`
+    let pierwDruga=data.substring(2,4);
+    //trzecia i czwarta cyfra peselu
+    let trzeciaCzwarta=parseInt(data.substring(5,7),10);
+    //piąta i szósta
+    let piataSzósta=parseInt(data.substring(8,10),10);
+    pesel.innerText=`${pierwDruga}${trzeciaCzwarta+20}${piataSzósta}`
 }
 
 
