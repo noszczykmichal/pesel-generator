@@ -13,7 +13,12 @@ function pesel(){
     let trzeciaCzwarta=parseInt(data.substring(5,7),10);
     //piąta i szósta
     let piataSzósta=parseInt(data.substring(8,10),10);
-    pesel.innerText=`${pierwDruga}${trzeciaCzwarta+20}${piataSzósta}`
+    //trzy losowe
+    function los(min,max){
+        return Math.floor(Math.random()*(max-min)+min)
+    }
+    let trzyLos=los(100,999);
+    pesel.innerText=`${pierwDruga}${trzeciaCzwarta+20}${piataSzósta}${trzyLos}`
 }
 
 
