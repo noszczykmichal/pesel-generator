@@ -58,6 +58,7 @@ function liczPesel(){
     pesel.innerText=`${pierwDruga}${trzeciaCzwarta}${piataSzosta}${trzyLos}${liczbaOznPlci}`   
 
     //liczba kontrolna do Peselu
+
     //każda liczba jest zamieniana ze stringa na liczbę ponieważ później będzie konieczne wykonanie na niej zadań matematycznych
     let pierPesel=parseInt(pierwDruga.substring(0,1),10);
     let drugaPesel=parseInt(pierwDruga.substring(1,2),10);
@@ -68,8 +69,28 @@ function liczPesel(){
     let szostaPesel=parseInt(piataSzosta.substring(1,2),10);
     let siodmaPesel=parseInt(trzyLos.toString().substring(0,1),10);
     let osmaPesel=parseInt(trzyLos.toString().substring(1,2),10);
-    let dzwiatPesel=parseInt(trzyLos.toString().substring(2,3),10);
+    let dziewiatPesel=parseInt(trzyLos.toString().substring(2,3),10);
     let dziesiatPesel=liczbaOznPlci;
+
+    //weryfikacja czy kolejne liczby z Peselu przemnożone przez kolejną wagę są jedno czy dwu cyfrowe 
+    let pierwKontr=pierPesel*1;
+    let drugaKontr=drugaPesel*3>=10? parseInt((drugaPesel*3).toString().substring(1,2),10) : drugaPesel*3;
+    let trzeKontr=trzeciaPesel*7>=10? parseInt((trzeciaPesel*7).toString().substring(1,2),10) : trzeciaPesel*7;
+    let czwartKontr=czwartaPesel*9>=10? parseInt((czwartaPesel*9).toString().substring(1,2),10) : czwartaPesel*9;
+    let piataKontr=piataPesel*1;
+    let szostaKontr=szostaPesel*3>=10? parseInt((szostaPesel*3).toString().substring(1,2),10) : szostaPesel*3;
+    let siodmaKontr=siodmaPesel*7>=10? parseInt((siodmaPesel*7).toString().substring(1,2),10) : siodmaPesel*7;
+    let osmaKontr=osmaPesel*9>=10? parseInt((osmaPesel*9).toString().substring(1,2),10) : osmaPesel*9;
+    let dziewKontr=dziewiatPesel*1;
+    let dziesiatKontr=dziesiatPesel*3>=10? parseInt((dziesiatPesel*3).toString().substring(1,2),10) : dziesiatPesel*3;
+    console.log("dziesiatPesel", dziesiatPesel)
+    
+    console.log("dziesiatKontr", dziesiatKontr)
+    
+    
+    
+    
+    
     
     
     
@@ -79,7 +100,7 @@ function liczPesel(){
     
 
     
-    console.log(pierPesel,drugaPesel,trzeciaPesel,czwartaPesel, piataPesel, szostaPesel, siodmaPesel,osmaPesel,dzwiatPesel, dziesiatPesel);
+    console.log(pierPesel,drugaPesel,trzeciaPesel,czwartaPesel, piataPesel, szostaPesel, siodmaPesel,osmaPesel,dziewiatPesel, dziesiatPesel);
 
     //wstrzykiwanie obliczonej zawartości do spana 'Pesel'
     pesel.innerText=`${pierwDruga}${trzeciaCzwarta}${piataSzosta}${trzyLos}${liczbaOznPlci}` 
