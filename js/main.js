@@ -1,16 +1,26 @@
 let btn=document.getElementById('generuj');
 
-function pesel(){
+function liczPesel(){
     //wstrzykiwanie Imienia i nazwiska
     let obywatel=document.getElementById('obywatel');
     let imieNazwisko=document.getElementById('imieNazwisko');
     obywatel.innerText=imieNazwisko.value
     // pierwsza i druga cyfra
     let data=document.getElementById('dataUrodzenia').value
+    console.log('wartość zmienna data:', data)
     let pesel=document.getElementById('pesel');
     let pierwDruga=data.substring(2,4);
+    // console.log("TCL: liczPesel -> pierwDruga", pierwDruga)
+    
     //trzecia i czwarta cyfra peselu
-    let trzeciaCzwarta=parseInt(data.substring(5,7),10);
+    let rok=parseInt(data.substring(0,4),10) 
+    console.log('zmienna rok:',rok);
+    let miesiacDoPeselu=parseInt(data.substring(5,7),10);
+    // console.log("miesiacDoPeselu", miesiacDoPeselu)
+
+    let trzeciaCzwarta= rok<2000? data.substring(5,7):miesiacDoPeselu+20
+    // console.log("trzeciaCzwarta", trzeciaCzwarta)
+    
     //piąta i szósta
     let piataSzósta=data.substring(8,10);
     //trzy losowe
@@ -35,7 +45,7 @@ function pesel(){
             }
         }else if(mezczyzna.checked===true){
             liczba2=los(1,10);
-            console.log(liczba2)
+            
             if(liczba2 % 2 != 0){
                 return liczba2
             }else{
@@ -44,12 +54,16 @@ function pesel(){
     }
 }
     let liczbaOznPlci=plec();
-    pesel.innerText=`${pierwDruga}${trzeciaCzwarta+20}${piataSzósta}${trzyLos}${liczbaOznPlci}`
+    pesel.innerText=`${pierwDruga}${trzeciaCzwarta}${piataSzósta}${trzyLos}${liczbaOznPlci}`   
 
+    //liczba kontrolna do Peselu
+    //każda liczba jest zamieniana ze stringa na liczbę ponieważ później będzie konieczne wykonanie na nich zadań matematycznych
+    let pierKontr=parseInt(pierwDruga.substring(0,1),10);
+    let drugaKontr=parseInt(pierwDruga.substring(1,2),10);
     
 }
 
 
 
 
-btn.addEventListener('click', pesel);
+btn.addEventListener('click', liczPesel);
