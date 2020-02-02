@@ -53,9 +53,7 @@ function liczPesel(){
             }    
     }
 }
-    let liczbaOznPlci=plec();
-    //wstrzykiwanie obliczonej zawartości do spana 'Pesel'
-    pesel.innerText=`${pierwDruga}${trzeciaCzwarta}${piataSzosta}${trzyLos}${liczbaOznPlci}`   
+    let liczbaOznPlci=plec(); 
 
     //liczba kontrolna do Peselu
 
@@ -72,6 +70,8 @@ function liczPesel(){
     let dziewiatPesel=parseInt(trzyLos.toString().substring(2,3),10);
     let dziesiatPesel=liczbaOznPlci;
 
+    console.log(pierPesel,drugaPesel,trzeciaPesel,czwartaPesel, piataPesel, szostaPesel, siodmaPesel,osmaPesel,dziewiatPesel, dziesiatPesel);
+
     //weryfikacja czy kolejne liczby z Peselu przemnożone przez kolejną wagę są jedno czy dwu cyfrowe 
     let pierwKontr=pierPesel*1;
     let drugaKontr=drugaPesel*3>=10? parseInt((drugaPesel*3).toString().substring(1,2),10) : drugaPesel*3;
@@ -83,27 +83,27 @@ function liczPesel(){
     let osmaKontr=osmaPesel*9>=10? parseInt((osmaPesel*9).toString().substring(1,2),10) : osmaPesel*9;
     let dziewKontr=dziewiatPesel*1;
     let dziesiatKontr=dziesiatPesel*3>=10? parseInt((dziesiatPesel*3).toString().substring(1,2),10) : dziesiatPesel*3;
-    console.log("dziesiatPesel", dziesiatPesel)
-    
-    console.log("dziesiatKontr", dziesiatKontr)
     
     
+    function liczKontrolna(){
+        //dodajemy sumę wszystkich liczb z peselu przemnożonych przez wagę
+        let liczbaSuma=pierwKontr+drugaKontr+trzeKontr+czwartKontr+piataKontr+szostaKontr+siodmaKontr+osmaKontr+dziewKontr+dziesiatKontr;
+        console.log("TCL: liczbaSuma:", liczbaSuma)
+        //warunek jeśli liczba jest większ od dziewięc czyli jest dwucufrowa potrzebujemy do dalszych wyliczeń ostatnią cyfrę
+        if(liczbaSuma>9){
+        let nowaSuma= parseInt(liczbaSuma.toString().substring(1,2),10)
+        console.log('nowaSuma:',nowaSuma)
+        let roznicaLiczKontrolna= 10-nowaSuma;
+        return roznicaLiczKontrolna
+    }else{return 10-liczbaSuma}
+}
+    
+    let liczbaKontrolna=liczKontrolna();
+    console.log("liczbaKontrolna:", liczbaKontrolna)
     
     
-    
-    
-    
-    
-   
-    
-    
-    
-
-    
-    console.log(pierPesel,drugaPesel,trzeciaPesel,czwartaPesel, piataPesel, szostaPesel, siodmaPesel,osmaPesel,dziewiatPesel, dziesiatPesel);
-
     //wstrzykiwanie obliczonej zawartości do spana 'Pesel'
-    pesel.innerText=`${pierwDruga}${trzeciaCzwarta}${piataSzosta}${trzyLos}${liczbaOznPlci}` 
+    pesel.innerText=`${pierwDruga}${trzeciaCzwarta}${piataSzosta}${trzyLos}${liczbaOznPlci}${liczbaKontrolna}` 
 }
 
 
