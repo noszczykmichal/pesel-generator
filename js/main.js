@@ -59,17 +59,17 @@ function liczPesel(){
 
     //liczba kontrolna do Peselu
     //każda liczba jest zamieniana ze stringa na liczbę ponieważ później będzie konieczne wykonanie na niej zadań matematycznych
-    let pierKontr=parseInt(pierwDruga.substring(0,1),10);
-    let drugaKontr=parseInt(pierwDruga.substring(1,2),10);
+    let pierPesel=parseInt(pierwDruga.substring(0,1),10);
+    let drugaPesel=parseInt(pierwDruga.substring(1,2),10);
     //obliczam trzecią liczbę kontrolną najpierw pobieram liczbę 3-cią i 4-tą, które są przekazywane do wyświetlenia, a później przepuszczam przez metodę toString(), żeby później za pomocą metody subString złapać odpowiednią liczbę na której będę mógł dokonywać obliczeń.Na koniec zamieniam string na number
-    let trzeciaKontr=parseInt(trzeciaCzwarta.toString().substring(0,1),10);
-    let czwartaKontr=parseInt(trzeciaCzwarta.toString().substring(1,2),10);
-    let piataKontr=parseInt(piataSzosta.substring(0,1),10);
-    let szostaKontr=parseInt(piataSzosta.substring(1,2),10);
-    let siodmaKontr=parseInt(trzyLos.toString().substring(0,1),10);
-    let osmaKontr=parseInt(trzyLos.toString().substring(1,2),10);
-    let dzwiewKontr=parseInt(trzyLos.toString().substring(2,3),10);
-    let dziesiatKontr=liczbaOznPlci;
+    let trzeciaPesel=parseInt(trzeciaCzwarta.toString().substring(0,1),10);
+    let czwartaPesel=parseInt(trzeciaCzwarta.toString().substring(1,2),10);
+    let piataPesel=parseInt(piataSzosta.substring(0,1),10);
+    let szostaPesel=parseInt(piataSzosta.substring(1,2),10);
+    let siodmaPesel=parseInt(trzyLos.toString().substring(0,1),10);
+    let osmaPesel=parseInt(trzyLos.toString().substring(1,2),10);
+    let dzwiatPesel=parseInt(trzyLos.toString().substring(2,3),10);
+    let dziesiatPesel=liczbaOznPlci;
     
     
     
@@ -79,7 +79,7 @@ function liczPesel(){
     
 
     
-    console.log(pierKontr,drugaKontr,trzeciaKontr,czwartaKontr, piataKontr, szostaKontr, siodmaKontr,osmaKontr,dzwiewKontr, dziesiatKontr);
+    console.log(pierPesel,drugaPesel,trzeciaPesel,czwartaPesel, piataPesel, szostaPesel, siodmaPesel,osmaPesel,dzwiatPesel, dziesiatPesel);
 
     //wstrzykiwanie obliczonej zawartości do spana 'Pesel'
     pesel.innerText=`${pierwDruga}${trzeciaCzwarta}${piataSzosta}${trzyLos}${liczbaOznPlci}` 
