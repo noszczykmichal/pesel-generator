@@ -60,6 +60,7 @@ function liczPesel(){
     //każda liczba jest zamieniana ze stringa na liczbę ponieważ później będzie konieczne wykonanie na niej zadań matematycznych
     let pierPesel=parseInt(pierwDruga.substring(0,1),10);
     let drugaPesel=parseInt(pierwDruga.substring(1,2),10);
+    
     //obliczam trzecią liczbę kontrolną najpierw pobieram liczbę 3-cią i 4-tą, które są przekazywane do wyświetlenia, a później przepuszczam przez metodę toString(), żeby później za pomocą metody subString złapać odpowiednią liczbę na której będę mógł dokonywać obliczeń.Na koniec zamieniam string na number
     let trzeciaPesel=parseInt(trzeciaCzwarta.toString().substring(0,1),10);
     let czwartaPesel=parseInt(trzeciaCzwarta.toString().substring(1,2),10);
@@ -75,6 +76,7 @@ function liczPesel(){
     //weryfikacja czy kolejne liczby z Peselu przemnożone przez kolejną wagę są jedno czy dwu cyfrowe 
     let pierwKontr=pierPesel*1;
     let drugaKontr=drugaPesel*3>=10? parseInt((drugaPesel*3).toString().substring(1,2),10) : drugaPesel*3;
+    
     let trzeKontr=trzeciaPesel*7>=10? parseInt((trzeciaPesel*7).toString().substring(1,2),10) : trzeciaPesel*7;
     let czwartKontr=czwartaPesel*9>=10? parseInt((czwartaPesel*9).toString().substring(1,2),10) : czwartaPesel*9;
     let piataKontr=piataPesel*1;
@@ -87,21 +89,25 @@ function liczPesel(){
     
     function liczKontrolna(){
         //dodajemy sumę wszystkich liczb z peselu przemnożonych przez wagę
-        let liczbaSuma=pierwKontr+drugaKontr+trzeKontr+czwartKontr+piataKontr+szostaKontr+siodmaKontr+osmaKontr+dziewKontr+dziesiatKontr;
-        console.log("TCL: liczbaSuma:", liczbaSuma)
-        //warunek jeśli liczba jest większ od dziewięc czyli jest dwucufrowa potrzebujemy do dalszych wyliczeń ostatnią cyfrę
-        if(liczbaSuma>9){
-        let nowaSuma= parseInt(liczbaSuma.toString().substring(1,2),10)
-        console.log('nowaSuma:',nowaSuma)
-        let roznicaLiczKontrolna= 10-nowaSuma;
-        return roznicaLiczKontrolna
-    }else{return 10-liczbaSuma}
+        let sumaWag=pierwKontr+drugaKontr+trzeKontr+czwartKontr+piataKontr+szostaKontr+siodmaKontr+osmaKontr+dziewKontr+dziesiatKontr;
+        console.log("TCL: liczKontrolna -> sumaWag", sumaWag)
+        //zmiana logiki wyliczania liczby kontrolnej-> strona ministerialna nie podaje co jeśli modulo z 10 dla sumy wag poszczególnych liczb z Peselu wynosi 0-> wtedy odejmowanie od 10 daje 10; według informacji z internetu dla takiej sytuacji jako cyfrę kontrokną należy przyjąć 0
+        let sumaWagModulo10= sumaWag %10
+        console.log("sumaWagModulo10", sumaWagModulo10)
+
+        if(sumaWagModulo10 ==0){
+            return 0;
+        }else{
+            return 10-sumaWagModulo10;
+        }
+        
 }
     
     let liczbaKontrolna=liczKontrolna();
     console.log("liczbaKontrolna:", liczbaKontrolna)
     
-    
+     
+
     //wstrzykiwanie obliczonej zawartości do spana 'Pesel'
     pesel.innerText=`${pierwDruga}${trzeciaCzwarta}${piataSzosta}${trzyLos}${liczbaOznPlci}${liczbaKontrolna}` 
 }

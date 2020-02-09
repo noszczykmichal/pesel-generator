@@ -10,18 +10,23 @@
 </head>
 
 <body>
-    <section id="dane">
-        <h1>Generator Pesel</h1>
-        <form>
-            <input type="text" name="imieNazwisko" id="imieNazwisko" placeholder="Imię i Nazwisko" />
-            <label for="dataUrodzenia">Wpisz Datę Urodzenia:</label>
-            <input type="date" name="dataUrodzenia" value="2020-01-01" id="dataUrodzenia" />
-            <label for="mezczyzna"><input type="radio" name="plec" value="mezczyzna" id="mezczyzna" >Mężczyzna</label>
-            <label for="kobieta"><input type="radio" name="plec" value="kobieta" id="kobieta" checked="true">Kobieta</label>
-        </form>
-        <button id="generuj">Generuje Dane</button>
-        <p>Obywatel <span id="obywatel">...................</span> ma Pesel <span id="pesel">...................</span>
-        </p>
+    <section class="glowna">
+        <div class="form">
+            <h1 class="naglowek">Generator Pesel</h1>
+            <form>
+                <input type="text" name="imieNazwisko" id="imieNazwisko" placeholder="Imię i Nazwisko" />
+                <label for="dataUrodzenia">Wpisz Datę Urodzenia:</label>
+                <input type="date" name="dataUrodzenia" value="2020-01-01" id="dataUrodzenia" />
+                <label for="mezczyzna"><input type="radio" name="plec" value="mezczyzna"
+                        id="mezczyzna">Mężczyzna</label>
+                <label for="kobieta"><input type="radio" name="plec" value="kobieta" id="kobieta"
+                        checked="true">Kobieta</label>
+            </form>
+            <button id="generuj">Generuje Dane</button>
+            <p>Obywatel <span id="obywatel">...................</span> ma Pesel <span
+                    id="pesel">...................</span>
+            </p>
+        </div>
     </section>
     <script src="js/main.js"></script>
 </body>
