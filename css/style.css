@@ -49,3 +49,10 @@ input:hover{
     font-weight: 700;
 }
 
+/* Responsive CSS */
+
+@media(max-width: 480px){
+    .container{
+        width: 100%;
+    }
+}
