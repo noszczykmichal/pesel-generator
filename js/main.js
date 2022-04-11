@@ -1,118 +1,151 @@
-let btn=document.getElementById('generuj');
+const fullName = document.getElementById("fullName");
+const birthDate = document.getElementById("birthDate");
+const male = document.getElementById("male");
+const female = document.getElementById("female");
+const generate = document.getElementById("generate");
+const citizen = document.getElementById("citizen");
+const pesel = document.getElementById("pesel");
 
-function liczPesel(){
-    //wstrzykiwanie Imienia i nazwiska
-    let obywatel=document.getElementById('obywatel');
-    let imieNazwisko=document.getElementById('imieNazwisko');
-    obywatel.innerText=imieNazwisko.value
-    // pierwsza i druga cyfra
-    let data=document.getElementById('dataUrodzenia').value
-    console.log('wartość zmienna data:', data)
-    let pesel=document.getElementById('pesel');
-    let pierwDruga=data.substring(2,4);
-    // console.log("TCL: liczPesel -> pierwDruga", pierwDruga)
-    
-    //trzecia i czwarta cyfra peselu
-    let rok=parseInt(data.substring(0,4),10) 
-    console.log('zmienna rok:',rok);
-    let miesiacDoPeselu=parseInt(data.substring(5,7),10);
-    // console.log("miesiacDoPeselu", miesiacDoPeselu)
+function calculateMonth(fullBirthDate, yearOfBirth) {
+  const monthOfBirth = +fullBirthDate.substring(5, 7);
 
-    let trzeciaCzwarta= rok<2000? data.substring(5,7):miesiacDoPeselu+20
-    // console.log("trzeciaCzwarta", trzeciaCzwarta)
-    
-    //piąta i szósta
-    let piataSzosta=data.substring(8,10);
-    //trzy losowe
-    function los(min,max){
-        return Math.floor(Math.random()*(max-min)+min)
+  if (yearOfBirth >= 1800 && yearOfBirth <= 1899) {
+    return `${80 + monthOfBirth}`;
+  } else if (yearOfBirth >= 1900 && yearOfBirth <= 1999) {
+    return monthOfBirth<=9? `0${monthOfBirth}` : `${monthOfBirth}`;
+  } else if (yearOfBirth >= 2000 && yearOfBirth <= 2099) {
+    return `${20 + monthOfBirth}`;
+  } else if (yearOfBirth >= 2100 && yearOfBirth <= 2199) {
+    return `${40 + monthOfBirth}`;
+  } else if (yearOfBirth >= 2200 && yearOfBirth <= 2299) {
+    return `${60 + monthOfBirth}`;
+  } else {
+    alert("Wprowadź rok urodzenia jeszcze raz");
+    throw new Error("Invalid year of birth");
+  }
+}
+
+const drawNumbers = (min, max, numLenght=1) => {
+    const drawnNum=Math.floor(Math.random() * (max - min) + min);
+
+    return (drawnNum<100 && numLenght===3)? `0${drawnNum}` : `${drawnNum}`;
+};
+
+function genderDesignationHandler() {
+  let number;
+  if (female.checked) {
+    number = drawNumbers(0, 9);
+
+    return number % 2 === 0 ? number : 0;
+  } else {
+    number = drawNumbers(1, 10);
+
+    return number % 2 !== 0 ? number : 1;
+  }
+}
+
+function liczPesel() {
+  const fullBirthDate = birthDate.value;
+  const yearOfBirth = +fullBirthDate.substring(0, 4);
+  //month of birth after necessary corrections depending on year of birth(see more in the Readme)
+  const monthToPesel = calculateMonth(fullBirthDate, yearOfBirth);
+  const dayToPesel = fullBirthDate.substring(8, 10);
+  const freeRandom = drawNumbers(1, 999, 3);
+  console.log({ freeRandom });
+
+  //4th random number which value depends on gender of a citizen; females get even number (0 is treated as even), males get odd
+  const genderDesigNumber = genderDesignationHandler();
+  console.log({ genderDesigNumber });
+
+  //getting all individual numbers which will be needed to calculate the control number
+  const firstPeselNum = +yearOfBirth.toString().substring(2, 3);
+  const secondPeselNum = +yearOfBirth.toString().substring(3, 4);
+  const thirdPeselNum = +monthToPesel.substring(0, 1);
+  const fourthPeselNum = +monthToPesel.substring(1);
+  const fithPeselNum = +dayToPesel.substring(0, 1);
+  const sixthPeselNum = +dayToPesel.substring(1);
+  const seventhPeselNum = +freeRandom.substring(0, 1);
+  const eighthPeselNum = +freeRandom.substring(1, 2);
+  const ninethPeselNum = +freeRandom.substring(2, 3);
+  const tenthPeselNum = genderDesigNumber;
+
+  console.log({ firstPeselNum });
+  console.log({ secondPeselNum });
+  console.log({ thirdPeselNum });
+  console.log({ fourthPeselNum });
+  console.log({ fithPeselNum });
+  console.log({ sixthPeselNum });
+
+  console.log(
+    `${firstPeselNum}${secondPeselNum}${thirdPeselNum}${fourthPeselNum}${fithPeselNum}${sixthPeselNum}${seventhPeselNum}${eighthPeselNum}${ninethPeselNum}${tenthPeselNum}`
+  );
+
+  let dziesiatPesel = liczbaOznPlci;
+
+  //weryfikacja czy kolejne liczby z Peselu przemnożone przez kolejną wagę są jedno czy dwu cyfrowe
+  let pierwKontr = pierPesel * 1;
+  let drugaKontr =
+    drugaPesel * 3 >= 10
+      ? parseInt((drugaPesel * 3).toString().substring(1, 2), 10)
+      : drugaPesel * 3;
+
+  let trzeKontr =
+    trzeciaPesel * 7 >= 10
+      ? parseInt((trzeciaPesel * 7).toString().substring(1, 2), 10)
+      : trzeciaPesel * 7;
+  let czwartKontr =
+    czwartaPesel * 9 >= 10
+      ? parseInt((czwartaPesel * 9).toString().substring(1, 2), 10)
+      : czwartaPesel * 9;
+  let piataKontr = piataPesel * 1;
+  let szostaKontr =
+    szostaPesel * 3 >= 10
+      ? parseInt((szostaPesel * 3).toString().substring(1, 2), 10)
+      : szostaPesel * 3;
+  let siodmaKontr =
+    siodmaPesel * 7 >= 10
+      ? parseInt((siodmaPesel * 7).toString().substring(1, 2), 10)
+      : siodmaPesel * 7;
+  let osmaKontr =
+    osmaPesel * 9 >= 10
+      ? parseInt((osmaPesel * 9).toString().substring(1, 2), 10)
+      : osmaPesel * 9;
+  let dziewKontr = dziewiatPesel * 1;
+  let dziesiatKontr =
+    dziesiatPesel * 3 >= 10
+      ? parseInt((dziesiatPesel * 3).toString().substring(1, 2), 10)
+      : dziesiatPesel * 3;
+
+  function liczKontrolna() {
+    //dodajemy sumę wszystkich liczb z peselu przemnożonych przez wagę
+    let sumaWag =
+      pierwKontr +
+      drugaKontr +
+      trzeKontr +
+      czwartKontr +
+      piataKontr +
+      szostaKontr +
+      siodmaKontr +
+      osmaKontr +
+      dziewKontr +
+      dziesiatKontr;
+    console.log("TCL: liczKontrolna -> sumaWag", sumaWag);
+    //zmiana logiki wyliczania liczby kontrolnej-> strona ministerialna nie podaje co jeśli modulo z 10 dla sumy wag poszczególnych liczb z Peselu wynosi 0-> wtedy odejmowanie od 10 daje 10; według informacji z internetu dla takiej sytuacji jako cyfrę kontrokną należy przyjąć 0
+    let sumaWagModulo10 = sumaWag % 10;
+    console.log("sumaWagModulo10", sumaWagModulo10);
+
+    if (sumaWagModulo10 == 0) {
+      return 0;
+    } else {
+      return 10 - sumaWagModulo10;
     }
-    let trzyLos=los(100,999);
-    
-    //oznaczenie płci
-    let mezczyzna=document.getElementById('mezczyzna');
-    let kobieta=document.getElementById('kobieta');
-    let liczba=null;
-    let liczba2=null;
-    function plec(){
-        if(kobieta.checked=== true){
-            liczba=los(0,9);
-            
-            if(liczba % 2 == 0){
-                return liczba
-            }else{
-                return 0
-            }
-        }else if(mezczyzna.checked===true){
-            liczba2=los(1,10);
-            
-            if(liczba2 % 2 != 0){
-                return liczba2
-            }else{
-                return 1
-            }    
-    }
-}
-    let liczbaOznPlci=plec(); 
+  }
 
-    //liczba kontrolna do Peselu
+  let liczbaKontrolna = liczKontrolna();
+  console.log("liczbaKontrolna:", liczbaKontrolna);
 
-    //każda liczba jest zamieniana ze stringa na liczbę ponieważ później będzie konieczne wykonanie na niej zadań matematycznych
-    let pierPesel=parseInt(pierwDruga.substring(0,1),10);
-    let drugaPesel=parseInt(pierwDruga.substring(1,2),10);
-    
-    //obliczam trzecią liczbę kontrolną najpierw pobieram liczbę 3-cią i 4-tą, które są przekazywane do wyświetlenia, a później przepuszczam przez metodę toString(), żeby później za pomocą metody subString złapać odpowiednią liczbę na której będę mógł dokonywać obliczeń.Na koniec zamieniam string na number
-    let trzeciaPesel=parseInt(trzeciaCzwarta.toString().substring(0,1),10);
-    let czwartaPesel=parseInt(trzeciaCzwarta.toString().substring(1,2),10);
-    let piataPesel=parseInt(piataSzosta.substring(0,1),10);
-    let szostaPesel=parseInt(piataSzosta.substring(1,2),10);
-    let siodmaPesel=parseInt(trzyLos.toString().substring(0,1),10);
-    let osmaPesel=parseInt(trzyLos.toString().substring(1,2),10);
-    let dziewiatPesel=parseInt(trzyLos.toString().substring(2,3),10);
-    let dziesiatPesel=liczbaOznPlci;
-
-    console.log(pierPesel,drugaPesel,trzeciaPesel,czwartaPesel, piataPesel, szostaPesel, siodmaPesel,osmaPesel,dziewiatPesel, dziesiatPesel);
-
-    //weryfikacja czy kolejne liczby z Peselu przemnożone przez kolejną wagę są jedno czy dwu cyfrowe 
-    let pierwKontr=pierPesel*1;
-    let drugaKontr=drugaPesel*3>=10? parseInt((drugaPesel*3).toString().substring(1,2),10) : drugaPesel*3;
-    
-    let trzeKontr=trzeciaPesel*7>=10? parseInt((trzeciaPesel*7).toString().substring(1,2),10) : trzeciaPesel*7;
-    let czwartKontr=czwartaPesel*9>=10? parseInt((czwartaPesel*9).toString().substring(1,2),10) : czwartaPesel*9;
-    let piataKontr=piataPesel*1;
-    let szostaKontr=szostaPesel*3>=10? parseInt((szostaPesel*3).toString().substring(1,2),10) : szostaPesel*3;
-    let siodmaKontr=siodmaPesel*7>=10? parseInt((siodmaPesel*7).toString().substring(1,2),10) : siodmaPesel*7;
-    let osmaKontr=osmaPesel*9>=10? parseInt((osmaPesel*9).toString().substring(1,2),10) : osmaPesel*9;
-    let dziewKontr=dziewiatPesel*1;
-    let dziesiatKontr=dziesiatPesel*3>=10? parseInt((dziesiatPesel*3).toString().substring(1,2),10) : dziesiatPesel*3;
-    
-    
-    function liczKontrolna(){
-        //dodajemy sumę wszystkich liczb z peselu przemnożonych przez wagę
-        let sumaWag=pierwKontr+drugaKontr+trzeKontr+czwartKontr+piataKontr+szostaKontr+siodmaKontr+osmaKontr+dziewKontr+dziesiatKontr;
-        console.log("TCL: liczKontrolna -> sumaWag", sumaWag)
-        //zmiana logiki wyliczania liczby kontrolnej-> strona ministerialna nie podaje co jeśli modulo z 10 dla sumy wag poszczególnych liczb z Peselu wynosi 0-> wtedy odejmowanie od 10 daje 10; według informacji z internetu dla takiej sytuacji jako cyfrę kontrokną należy przyjąć 0
-        let sumaWagModulo10= sumaWag %10
-        console.log("sumaWagModulo10", sumaWagModulo10)
-
-        if(sumaWagModulo10 ==0){
-            return 0;
-        }else{
-            return 10-sumaWagModulo10;
-        }
-        
-}
-    
-    let liczbaKontrolna=liczKontrolna();
-    console.log("liczbaKontrolna:", liczbaKontrolna)
-    
-     
-
-    //wstrzykiwanie obliczonej zawartości do spana 'Pesel'
-    pesel.innerText=`${pierwDruga}${trzeciaCzwarta}${piataSzosta}${trzyLos}${liczbaOznPlci}${liczbaKontrolna}` 
+  //wstrzykiwanie obliczonej zawartości do spana 'Pesel'
+  pesel.innerText = `${pierwDruga}${trzeciaCzwarta}${piataSzosta}${trzyLos}${liczbaOznPlci}${liczbaKontrolna}`;
 }
 
-
-
-
-btn.addEventListener('click', liczPesel);
+generate.addEventListener("click", liczPesel);
