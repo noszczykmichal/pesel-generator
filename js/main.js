@@ -44,25 +44,81 @@ function genderDesignationHandler() {
   }
 }
 
-function calculateControlNum(...allNums) {
-  //summing up all numbers that were got from multiplying individual numbers from Pesel number by their weight; sum that was calculated is then devided by modulo of 10; on the Government's' site there is no clear info what happens if modulo of 10 from sum gives 0; according to the info found on the Internet then the control number equals 0
-  const sumByModule10 = allNums.reduce((curr, prev) => curr + prev) % 10;
+const sum = (...args) => args.reduce((curr, prev) => curr + prev);
 
-  return sumByModule10 === 0 ? 0 : 10 - sumByModule10;
+function calculateControlNum(
+  firstPNum,
+  secondPNum,
+  thirdPNum,
+  fourthPNum,
+  fivethPNum,
+  sixthPNum,
+  seventhPNum,
+  eighthPNum,
+  ninthPNum,
+  tenthPNum
+) {
+  //caclulation of the control number- each of ten previously calculated numbers that make up Pesel number has to be multiplied by given weight
+
+  const firstToControl = firstPNum * 1;
+  const secondToControl =
+    secondPNum * 3 >= 10
+      ? +(secondPNum * 3).toString().substring(1)
+      : secondPNum * 3;
+  const thirdToControl =
+    thirdPNum * 7 >= 10
+      ? +(thirdPNum * 7).toString().substring(1)
+      : thirdPNum * 7;
+  const fourthToControl =
+    fourthPNum * 9 >= 10
+      ? +(fourthPNum * 9).toString().substring(1)
+      : fourthPNum * 9;
+  const fithToControl = fivethPNum * 1;
+  const sixthToControl =
+    sixthPNum * 3 >= 10
+      ? +(sixthPNum * 3).toString().substring(1)
+      : sixthPNum * 3;
+  const seventhToControl =
+    seventhPNum * 7 >= 10
+      ? +(seventhPNum * 7).toString().substring(1)
+      : seventhPNum * 7;
+  const eighthToControl =
+    eighthPNum * 9 >= 10
+      ? +(eighthPNum * 9).toString().substring(1)
+      : eighthPNum * 9;
+  const ninthToControl = ninthPNum * 1;
+  const tenthToControl =
+    tenthPNum * 3 >= 10
+      ? +(tenthPNum * 3).toString().substring(1)
+      : tenthPNum * 3;
+
+  //summing up all numbers that were got from multiplying individual numbers from Pesel number by their weight; sum that was calculated is then devided by modulo of 10; on the Government's' site there is no clear info what happens if modulo of 10 from sum gives 0; according to the info found on the Internet then the control number equals 0
+  const sumOfCompNums = sum(
+    firstToControl,
+    secondToControl,
+    thirdToControl,
+    fourthToControl,
+    fithToControl,
+    sixthToControl,
+    seventhToControl,
+    eighthToControl,
+    ninthToControl,
+    tenthToControl
+  );
+
+  return sumOfCompNums % 10 === 0 ? 0 : 10 - (sumOfCompNums % 10);
 }
 
-function liczPesel() {
+function generatePesel() {
   const fullBirthDate = birthDate.value;
   const yearOfBirth = +fullBirthDate.substring(0, 4);
   //month of birth after necessary corrections depending on year of birth(see more in the Readme)
   const monthToPesel = calculateMonth(fullBirthDate, yearOfBirth);
   const dayToPesel = fullBirthDate.substring(8, 10);
   const freeRandom = drawNumbers(1, 999, 3);
-  console.log({ freeRandom });
 
   //4th random number which value depends on gender of a citizen; females get even number (0 is treated as even), males get odd
   const genderDesigNumber = genderDesignationHandler();
-  console.log({ genderDesigNumber });
 
   //getting all individual numbers which will be needed to calculate the control number
   const firstPeselNum = +yearOfBirth.toString().substring(2, 3);
@@ -76,71 +132,21 @@ function liczPesel() {
   const ninthPeselNum = +freeRandom.substring(2, 3);
   const tenthPeselNum = genderDesigNumber;
 
-  console.log(
-    `${firstPeselNum}${secondPeselNum}${thirdPeselNum}${fourthPeselNum}${fithPeselNum}${sixthPeselNum}${seventhPeselNum}${eighthPeselNum}${ninthPeselNum}${tenthPeselNum}`
-  );
-
-  //caclulation of the control number- each of ten previously calculated numbers that make up Pesel number has to be multiplied by given weight
-
-  const firstToControl = firstPeselNum * 1;
-  const secondToControl =
-    secondPeselNum * 3 >= 10
-      ? +(secondPeselNum * 3).toString().substring(1)
-      : secondPeselNum * 3;
-  const thirdToControl =
-    thirdPeselNum * 7 >= 10
-      ? +(thirdPeselNum * 7).toString().substring(1)
-      : thirdPeselNum * 7;
-  const fourthToControl =
-    fourthPeselNum * 9 >= 10
-      ? +(fourthPeselNum * 9).toString().substring(1)
-      : fourthPeselNum * 9;
-  const fithToControl = fithPeselNum * 1;
-  const sixthToControl =
-    sixthPeselNum * 3 >= 10
-      ? +(sixthPeselNum * 3).toString().substring(1)
-      : sixthPeselNum * 3;
-  const seventhToControl =
-    seventhPeselNum * 7 >= 10
-      ? +(seventhPeselNum * 7).toString().substring(1)
-      : seventhPeselNum * 7;
-  const eighthToControl =
-    eighthPeselNum * 9 >= 10
-      ? +(eighthPeselNum * 9).toString().substring(1)
-      : eighthPeselNum * 9;
-  const ninthToControl = ninthPeselNum * 1;
-  const tenthToControl =
-    tenthPeselNum * 3 >= 10
-      ? +(tenthPeselNum * 3).toString().substring(1)
-      : tenthPeselNum * 3;
-
-  console.log({ firstToControl });
-  console.log({ secondToControl });
-  console.log({ thirdToControl });
-  console.log({ fourthToControl });
-  console.log({ fithToControl });
-  console.log({ sixthToControl });
-  console.log({ seventhToControl });
-  console.log({ eighthToControl });
-  console.log({ ninthToControl });
-  console.log({ tenthToControl });
-
   const controlNum = calculateControlNum(
-    firstToControl,
-    secondToControl,
-    thirdToControl,
-    fourthToControl,
-    fithToControl,
-    sixthToControl,
-    seventhToControl,
-    eighthToControl,
-    ninthToControl,
-    tenthToControl
+    firstPeselNum,
+    secondPeselNum,
+    thirdPeselNum,
+    fourthPeselNum,
+    fithPeselNum,
+    sixthPeselNum,
+    seventhPeselNum,
+    eighthPeselNum,
+    ninthPeselNum,
+    tenthPeselNum
   );
 
-  console.log({ controlNum });
-
-  //wstrzykiwanie obliczonej zawartości do spana 'Pesel'
-//   pesel.innerText = `${pierwDruga}${trzeciaCzwarta}${piataSzosta}${trzyLos}${liczbaOznPlci}${liczbaKontrolna}`;
+  citizen.innerText = `${fullName.value}`;
+  pesel.innerText = `${firstPeselNum}${secondPeselNum}${thirdPeselNum}${fourthPeselNum}${fithPeselNum}${sixthPeselNum}${seventhPeselNum}${eighthPeselNum}${ninthPeselNum}${tenthPeselNum}${controlNum}`;
 }
-generate.addEventListener("click", liczPesel);
+
+generate.addEventListener("click", generatePesel);
