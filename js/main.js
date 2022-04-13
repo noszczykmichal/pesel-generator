@@ -1,3 +1,5 @@
+"use strict";
+
 const fullName = document.getElementById("fullName");
 const birthDate = document.getElementById("birthDate");
 const male = document.getElementById("male");
