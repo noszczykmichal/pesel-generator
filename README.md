@@ -71,7 +71,7 @@ The last 11th digit can be calculated in 3 easy steps:
 
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+![Example screenshot](./img/screenshot.PNG)
 
 
 ## Setup
