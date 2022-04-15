@@ -86,7 +86,7 @@ or check a live demo [_here_](https://noszczykmichal.github.io/pesel-generator/i
 
 
 ## Project Status
-Project is completed and probably won't be developed in the future. Recently some improvements have been done over the prior version as noted in General Info(#general-information).
+Project is completed and probably won't be developed in the future. Recently some improvements have been done over the prior version as noted in [General Info](#general-information).
 
 
 ## Contact
